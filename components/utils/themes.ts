@@ -3,6 +3,8 @@ import {createMuiTheme} from '@material-ui/core/styles';
 export const defaultTheme = {
   background: '#FAFAFA',
   error: '#EB5757',
+  black: 'black',
+  darkGray: 'darkgray'
 }
 
 const primaryFont = 'Noto Sans Japanese';
