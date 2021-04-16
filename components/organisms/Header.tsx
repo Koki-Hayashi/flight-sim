@@ -1,10 +1,8 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,14 +71,14 @@ export default function SearchAppBar() {
           <Typography className={classes.title} variant="h6" noWrap>
             Flight Simulator
           </Typography>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon/>
-          </IconButton>
+          {/*<IconButton*/}
+          {/*  edge="start"*/}
+          {/*  className={classes.menuButton}*/}
+          {/*  color="inherit"*/}
+          {/*  aria-label="open drawer"*/}
+          {/*>*/}
+          {/*  <MenuIcon/>*/}
+          {/*</IconButton>*/}
 
         </Toolbar>
       </AppBar>

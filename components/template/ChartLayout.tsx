@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from "styled-components";
-import {LineChart} from "../organisms/chart/LineChart";
-import {SettingsPanel} from "../organisms/SettingsPanel";
+import {Props as SettingsPanelProps, SettingsPanel} from "../organisms/SettingsPanel";
 import {InfoPanel} from "../organisms/InfoPanel";
 import {defaultTheme} from "../utils";
+import {LineChart} from "../organisms/chart/LineChart";
+import {Data} from "../../utils/data";
 
 const Wrapper = styled.div`
   display: grid;
@@ -36,16 +37,24 @@ const InfoWrapper = styled.div`
   grid-column: 1 / 3;
 `
 
-export const ChartLayout: React.FC = () => {
+type Props = SettingsPanelProps & {
+  data: Data
+}
+
+export const ChartLayout: React.FC<Props> = ({data, phase, onChangeMode, mode, onChangePhase, wind, temperature, pressure}) => {
   return <Wrapper>
     <ChartWrapper>
-      <LineChart/>
+      <LineChart data={data}/>
     </ChartWrapper>
     <SettingsWrapper>
       <SettingsPanel
-        wind={{onChange: () => console.log("wind"), checked: true}}
-        temperature={{onChange: () => console.log("temperature"), checked: true}}
-        pressure={{onChange: () => console.log("pressure"), checked: true}}
+        phase={phase}
+        mode={mode}
+        onChangeMode={onChangeMode}
+        onChangePhase={onChangePhase}
+        wind={{...wind}}
+        temperature={{...temperature}}
+        pressure={{...pressure}}
       />
     </SettingsWrapper>
     <InfoWrapper>

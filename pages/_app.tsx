@@ -6,6 +6,7 @@ import '../public/global.css'
 
 import {muiTheme} from "../components/utils";
 import styled from "styled-components";
+import {StoreContextProvider} from "../store/storeProvider";
 
 const Wrapper = styled.div`
 `
@@ -20,14 +21,16 @@ const App = ({Component, pageProps}: { Component: any; pageProps: any }) => {
   }, [])
 
   return (
-    <StylesProvider injectFirst>
-      <MaterialUIThemeProvider theme={muiTheme}>
-        <CssBaseline/>
-        <Wrapper>
-          <Component {...pageProps} />
-        </Wrapper>
-      </MaterialUIThemeProvider>
-    </StylesProvider>
+    <StoreContextProvider>
+      <StylesProvider injectFirst>
+        <MaterialUIThemeProvider theme={muiTheme}>
+          <CssBaseline/>
+          <Wrapper>
+            <Component {...pageProps} />
+          </Wrapper>
+        </MaterialUIThemeProvider>
+      </StylesProvider>
+    </StoreContextProvider>
   )
 }
 

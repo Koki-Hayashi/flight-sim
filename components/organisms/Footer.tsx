@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from "styled-components";
 import {NanoText} from "../atom/StyledTexts";
-import {defaultTheme} from "../utils";
 
 const Wrapper = styled.div`
   height: 200px;
-  border-top: 1px ${defaultTheme.darkGray} solid
 `
 
 const TextWrapper = styled.div`

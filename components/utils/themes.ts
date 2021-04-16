@@ -21,6 +21,9 @@ export const muiTheme = createMuiTheme({
     },
   },
   palette: {
+    primary: {
+      main: '#1877F2'
+    },
     background: {
       default: defaultTheme.background,
     },
