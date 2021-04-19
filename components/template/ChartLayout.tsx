@@ -4,8 +4,8 @@ import {SettingsPanel} from "../organisms/SettingsPanel";
 import {InfoPanel} from "../organisms/InfoPanel";
 import {defaultTheme} from "../utils";
 import {LineChart} from "../organisms/chart/LineChart";
-import {getDataSet, Phase} from "../../data/dataSet";
-import {MODE} from "../../store/viewModel/lineChartVM";
+import {Phase} from "../../data/dataSet";
+import {MODE, X_AXIS_MODE} from "../../store/viewModel/lineChartVM";
 import {FlightData} from "../../data/flights";
 
 const Wrapper = styled.div`
@@ -49,18 +49,22 @@ type Props = {
   onChangePhase: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void,
   mode: MODE,
   onChangeMode: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void
+  xAxis: X_AXIS_MODE,
+  onChangeXAxis: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void
   wind: ToggleHandler,
   temperature: ToggleHandler,
   pressure: ToggleHandler,
   flight: FlightData,
 }
 
-export const ChartLayout: React.FC<Props> = ({flight, phase, onChangeMode, mode, onChangePhase, wind, temperature, pressure}) => {
+export const ChartLayout: React.FC<Props> = ({flight, phase, onChangeMode, mode, onChangePhase, xAxis, onChangeXAxis, wind, temperature, pressure}) => {
   return <Wrapper>
     <ChartWrapper>
       <LineChart
         flight={flight}
-        dataSet={getDataSet(phase.type, mode)}
+        phase={phase}
+        mode={mode}
+        xAxis={xAxis}
       />
     </ChartWrapper>
     <SettingsWrapper>
@@ -69,6 +73,8 @@ export const ChartLayout: React.FC<Props> = ({flight, phase, onChangeMode, mode,
         mode={mode}
         onChangeMode={onChangeMode}
         onChangePhase={onChangePhase}
+        xAxis={xAxis}
+        onChangeXAxis={onChangeXAxis}
         wind={{...wind}}
         temperature={{...temperature}}
         pressure={{...pressure}}

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import {ToggleWithTitle} from "../molecules/ToggleWithTitle";
 import {FormControl, InputLabel, makeStyles, Select} from "@material-ui/core";
-import {MODE} from "../../store/viewModel/lineChartVM";
+import {MODE, X_AXIS_MODE} from "../../store/viewModel/lineChartVM";
 import Link from "next/link";
 import {Phase} from "../../data/dataSet";
 
@@ -42,6 +42,8 @@ export type Props = {
   onChangePhase: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void,
   mode: MODE,
   onChangeMode: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void
+  xAxis: X_AXIS_MODE,
+  onChangeXAxis: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void
   wind: ToggleHandler,
   temperature: ToggleHandler,
   pressure: ToggleHandler,
@@ -57,7 +59,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SettingsPanel: React.FC<Props> = ({phase, onChangePhase, mode, onChangeMode, wind, temperature, pressure}) => {
+export const SettingsPanel: React.FC<Props> = (
+  {
+    phase,
+    onChangePhase,
+    mode,
+    onChangeMode,
+    xAxis,
+    onChangeXAxis,
+    wind,
+    temperature,
+    pressure
+  }) => {
   const classes = useStyles();
 
   return <Wrapper>
@@ -94,6 +107,22 @@ export const SettingsPanel: React.FC<Props> = ({phase, onChangePhase, mode, onCh
           <option value={'FUEL_BURN'}>Fuel Burn</option>
           <option value={'IAS'}>IAS</option>
           <option value={'MACH'}>Mach</option>
+        </Select>
+      </FormControl>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="xaxis-selector">X-Axis</InputLabel>
+        <Select
+          native
+          value={xAxis}
+          onChange={onChangeXAxis}
+          inputProps={{
+            name: 'xaxis',
+            id: 'xaxis-selector',
+          }}
+        >
+          <option aria-label="None" value=""/>
+          <option value={'TIME'}>Time elapsed</option>
+          <option value={'TRAJECTORY'}>Trajectory</option>
         </Select>
       </FormControl>
     </ButtonWrapper>

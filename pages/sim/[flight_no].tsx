@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import Layout from '../../components/template/Layout'
 import {ChartLayout} from "../../components/template/ChartLayout";
 import {StoreContext} from "../../store/storeProvider";
-import {MODE} from "../../store/viewModel/lineChartVM";
+import {MODE, X_AXIS_MODE} from "../../store/viewModel/lineChartVM";
 import {getPhase, PHASE_TYPE} from "../../data/dataSet";
 import {useRouter} from "next/router";
 import {LoadingView} from "../../components/atom/LoadingView";
@@ -12,8 +12,8 @@ import {getFlight} from "../../data/flights";
 const FlightSimulator: React.FC = () => {
 
   const {lineChartVM, lineChartDispatch: dispatch} = useContext(StoreContext)
-  const {actions, phase, mode, windSwitch, pressureSwitch, temperatureSwitch} = lineChartVM
-  const {setPhase, setMode, setPressureSwitch, setTemperatureSwitch, setWindSwitch} = actions
+  const {actions, phase, mode, windSwitch, pressureSwitch, temperatureSwitch, xAxis} = lineChartVM
+  const {setPhase, setMode, setPressureSwitch, setTemperatureSwitch, setWindSwitch, setXAxis} = actions
 
   const router = useRouter()
   const flightNumber = getOrFirstOne(router.query, 'flight_no')
@@ -32,6 +32,10 @@ const FlightSimulator: React.FC = () => {
       mode={mode}
       onChangeMode={(e: any) => {
         dispatch(setMode(e.target.value as MODE))
+      }}
+      xAxis={xAxis}
+      onChangeXAxis={(e: any) => {
+        dispatch(setXAxis(e.target.value as X_AXIS_MODE))
       }}
       wind={{
         onChange: (e: any) => {

@@ -8,12 +8,16 @@ import {cruiseFl} from "./cruise/fl";
 type Datum = {
   name?: string
   original: number,
-  optimal: number
+  optimal: number,
+  x: number,
+  lowerLimit?: number,
+  upperLimit?: number,
 }
 
 export type DataSet = {
   yLabel: string,
-  data: Array<Datum>
+  time: Array<Datum>,
+  trajectory: Array<Datum>
 }
 
 export type PHASE_TYPE = 'CLIMB' | 'CRUISE'
@@ -64,9 +68,9 @@ const cruise: Phase = {
     usd: -571
   },
   fl: cruiseFl,
-  fuelBurn: {yLabel: "", data: []},
-  ias: {yLabel: "", data: []},
-  mach: {yLabel: "", data: []},
+  fuelBurn: {yLabel: "", time: [], trajectory: []},
+  ias: {yLabel: "", time: [], trajectory: []},
+  mach: {yLabel: "", time: [], trajectory: []},
 }
 
 const climb: Phase = {
