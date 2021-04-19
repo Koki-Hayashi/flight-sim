@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import {BoldText} from "../atom/StyledTexts";
+import {FuelSave} from "../../data/dataSet";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -20,11 +21,16 @@ const DescText = styled(BoldText)`
   margin-right: 15px;
 `
 
+export type Prop = {
+  fuelSave: FuelSave
+}
 
-export const InfoPanel: React.FC = () => {
+export const InfoPanel: React.FC<Prop> = ({fuelSave}) => {
+  const {weight, usd} = fuelSave
+
   return <Wrapper>
     <LayerWrapper>
-      <DescText>Fuel Saving: -215kg ($-150)</DescText>
+      <DescText>Fuel Saving: {weight}kg (${usd})</DescText>
       <DescText>FMS Settings: IAS 243kt, 10k ft, Max M = 0.78</DescText>
     </LayerWrapper>
     {/*<LayerWrapper>*/}

@@ -2,8 +2,9 @@ import React from 'react'
 import styled from "styled-components";
 import {ToggleWithTitle} from "../molecules/ToggleWithTitle";
 import {FormControl, InputLabel, makeStyles, Select} from "@material-ui/core";
-import {MODE, PHASE} from "../../store/viewModel/lineChartVM";
+import {MODE} from "../../store/viewModel/lineChartVM";
 import Link from "next/link";
+import {Phase} from "../../data/dataSet";
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,7 +38,7 @@ type ToggleHandler = {
 }
 
 export type Props = {
-  phase: PHASE,
+  phase: Phase,
   onChangePhase: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void,
   mode: MODE,
   onChangeMode: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void
@@ -65,7 +66,7 @@ export const SettingsPanel: React.FC<Props> = ({phase, onChangePhase, mode, onCh
         <InputLabel htmlFor="phase-selector">Phase</InputLabel>
         <Select
           native
-          value={phase}
+          value={phase.type}
           onChange={onChangePhase}
           inputProps={{
             name: 'phase',

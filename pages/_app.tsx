@@ -7,6 +7,7 @@ import '../public/global.css'
 import {muiTheme} from "../components/utils";
 import styled from "styled-components";
 import {StoreContextProvider} from "../store/storeProvider";
+import {Head} from "../components/Head";
 
 const Wrapper = styled.div`
 `
@@ -25,6 +26,7 @@ const App = ({Component, pageProps}: { Component: any; pageProps: any }) => {
       <StylesProvider injectFirst>
         <MaterialUIThemeProvider theme={muiTheme}>
           <CssBaseline/>
+          <Head/>
           <Wrapper>
             <Component {...pageProps} />
           </Wrapper>

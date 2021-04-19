@@ -1,51 +1,50 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import Layout from '../../components/template/Layout'
 import {ChartLayout} from "../../components/template/ChartLayout";
 import {StoreContext} from "../../store/storeProvider";
-import {MODE, PHASE} from "../../store/viewModel/lineChartVM";
-import {dataSelector} from "../../data/data";
+import {MODE} from "../../store/viewModel/lineChartVM";
+import {getPhase, PHASE_TYPE} from "../../data/dataSet";
 import {useRouter} from "next/router";
 import {LoadingView} from "../../components/atom/LoadingView";
 import {getOrFirstOne} from "../../utils/queryUtil";
+import {getFlight} from "../../data/flights";
 
 const FlightSimulator: React.FC = () => {
 
   const {lineChartVM, lineChartDispatch: dispatch} = useContext(StoreContext)
-  const {actions, data, phase, mode, windSwitch, pressureSwitch, temperatureSwitch} = lineChartVM
-  const {setData, setPhase, setMode, setPressureSwitch, setTemperatureSwitch, setWindSwitch} = actions
-
-  useEffect(() => {
-    dispatch(setData(dataSelector(phase, mode)))
-  }, [phase, mode])
+  const {actions, phase, mode, windSwitch, pressureSwitch, temperatureSwitch} = lineChartVM
+  const {setPhase, setMode, setPressureSwitch, setTemperatureSwitch, setWindSwitch} = actions
 
   const router = useRouter()
   const flightNumber = getOrFirstOne(router.query, 'flight_no')
   if (!flightNumber) return <LoadingView/>
 
+  const flight = getFlight(flightNumber)
+
   return <Layout>
     <ChartLayout
-      flightNumber={flightNumber}
-      data={data}
+      flight={flight}
       phase={phase}
-      onChangePhase={(e) => {
-        dispatch(setPhase(e.target.value as PHASE))
+      onChangePhase={(e: any) => {
+        const phaseType = e.target.value as PHASE_TYPE
+        dispatch(setPhase(getPhase(phaseType)))
       }}
       mode={mode}
-      onChangeMode={(e) => {
+      onChangeMode={(e: any) => {
         dispatch(setMode(e.target.value as MODE))
       }}
       wind={{
-        onChange: (e) => {
+        onChange: (e: any) => {
           dispatch(setWindSwitch(e.target.checked))
         }, checked: windSwitch
       }}
       temperature={{
-        onChange: (e) => {
+        onChange: (e: any) => {
           dispatch(setTemperatureSwitch(e.target.checked))
         }, checked: temperatureSwitch
       }}
       pressure={{
-        onChange: (e) => {
+        onChange: (e: any) => {
           dispatch(setPressureSwitch(e.target.checked))
         }, checked: pressureSwitch
       }}

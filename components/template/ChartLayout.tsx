@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from "styled-components";
-import {Props as SettingsPanelProps, SettingsPanel} from "../organisms/SettingsPanel";
+import {SettingsPanel} from "../organisms/SettingsPanel";
 import {InfoPanel} from "../organisms/InfoPanel";
 import {defaultTheme} from "../utils";
 import {LineChart} from "../organisms/chart/LineChart";
-import {Data} from "../../data/data";
+import {getDataSet, Phase} from "../../data/dataSet";
+import {MODE} from "../../store/viewModel/lineChartVM";
+import {FlightData} from "../../data/flights";
 
 const Wrapper = styled.div`
   display: grid;
@@ -37,15 +39,29 @@ const InfoWrapper = styled.div`
   grid-column: 1 / 3;
 `
 
-type Props = SettingsPanelProps & {
-  flightNumber: string,
-  data: Data
+type ToggleHandler = {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  checked: boolean
 }
 
-export const ChartLayout: React.FC<Props> = ({flightNumber, data, phase, onChangeMode, mode, onChangePhase, wind, temperature, pressure}) => {
+type Props = {
+  phase: Phase,
+  onChangePhase: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void,
+  mode: MODE,
+  onChangeMode: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void
+  wind: ToggleHandler,
+  temperature: ToggleHandler,
+  pressure: ToggleHandler,
+  flight: FlightData,
+}
+
+export const ChartLayout: React.FC<Props> = ({flight, phase, onChangeMode, mode, onChangePhase, wind, temperature, pressure}) => {
   return <Wrapper>
     <ChartWrapper>
-      <LineChart flightNumber={flightNumber} data={data}/>
+      <LineChart
+        flight={flight}
+        dataSet={getDataSet(phase.type, mode)}
+      />
     </ChartWrapper>
     <SettingsWrapper>
       <SettingsPanel
@@ -59,7 +75,7 @@ export const ChartLayout: React.FC<Props> = ({flightNumber, data, phase, onChang
       />
     </SettingsWrapper>
     <InfoWrapper>
-      <InfoPanel/>
+      <InfoPanel fuelSave={phase.fuelSave}/>
     </InfoWrapper>
   </Wrapper>
 }

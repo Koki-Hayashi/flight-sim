@@ -1,29 +1,22 @@
-import {Data} from "../../data/data";
+import {getPhase, Phase} from "../../data/dataSet";
 
-export type PHASE = 'CLIMB' | 'CRUISE'
 export type MODE = 'FL' | 'FUEL_BURN' | 'IAS' | 'MACH'
 
 export class LineChartVM {
-  phase: PHASE = 'CLIMB'
+  phase: Phase = getPhase("CLIMB")
   mode: MODE = 'FL'
-  data: Data = []
   windSwitch: boolean = false
   temperatureSwitch: boolean = false
   pressureSwitch: boolean = false
 
   actions = {
-    setPhase: (value: PHASE): this => {
+    setPhase: (value: Phase): this => {
       this.phase = value
 
       return this
     },
     setMode: (value: MODE): this => {
       this.mode = value
-
-      return this
-    },
-    setData: (value: Data): this => {
-      this.data = value
 
       return this
     },

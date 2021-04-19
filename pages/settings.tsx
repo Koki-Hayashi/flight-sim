@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from '../components/template/Layout'
-import Image from 'next/image'
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -15,9 +14,8 @@ const Settings: React.FC = () => {
 
   return <Layout>
     <Wrapper>
-      <Image
+      <img
         src={"/settings.png"}
-        layout={"intrinsic"}
         width={1200}
         height={700}
       />
