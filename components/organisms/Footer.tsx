@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
     <Wrapper>
       <TextWrapper>
         <NanoText>
-          Copyright © xyz Inc.
+          {/*Copyright © xyz Inc.*/}
         </NanoText>
       </TextWrapper>
     </Wrapper>

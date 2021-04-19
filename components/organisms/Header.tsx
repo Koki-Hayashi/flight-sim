@@ -1,8 +1,10 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
+import {LargeText} from "../atom/StyledTexts";
+import styled from "styled-components";
+import {redirect} from "../../service/redirectService";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,6 +63,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const TitleWrapper = styled.div`
+  cursor: pointer;
+`
+
 export default function SearchAppBar() {
   const classes = useStyles();
 
@@ -68,9 +74,11 @@ export default function SearchAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Flight Simulator
-          </Typography>
+          <TitleWrapper onClick={() => redirect("/")}>
+            <LargeText className={classes.title} variant="h6" noWrap>
+              Flight Simulator
+            </LargeText>
+          </TitleWrapper>
           {/*<IconButton*/}
           {/*  edge="start"*/}
           {/*  className={classes.menuButton}*/}

@@ -4,7 +4,7 @@ import {Props as SettingsPanelProps, SettingsPanel} from "../organisms/SettingsP
 import {InfoPanel} from "../organisms/InfoPanel";
 import {defaultTheme} from "../utils";
 import {LineChart} from "../organisms/chart/LineChart";
-import {Data} from "../../utils/data";
+import {Data} from "../../data/data";
 
 const Wrapper = styled.div`
   display: grid;
@@ -38,13 +38,14 @@ const InfoWrapper = styled.div`
 `
 
 type Props = SettingsPanelProps & {
+  flightNumber: string,
   data: Data
 }
 
-export const ChartLayout: React.FC<Props> = ({data, phase, onChangeMode, mode, onChangePhase, wind, temperature, pressure}) => {
+export const ChartLayout: React.FC<Props> = ({flightNumber, data, phase, onChangeMode, mode, onChangePhase, wind, temperature, pressure}) => {
   return <Wrapper>
     <ChartWrapper>
-      <LineChart data={data}/>
+      <LineChart flightNumber={flightNumber} data={data}/>
     </ChartWrapper>
     <SettingsWrapper>
       <SettingsPanel

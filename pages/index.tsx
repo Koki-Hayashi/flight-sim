@@ -1,48 +1,23 @@
-import React, {useContext, useEffect} from 'react'
-import Layout from '../components/template/Layout'
-import {ChartLayout} from "../components/template/ChartLayout";
-import {StoreContext} from "../store/storeProvider";
-import {MODE, PHASE} from "../store/viewModel/lineChartVM";
-import {dataSelector} from "../utils/data";
+import React from 'react'
+import Layout from "../components/template/Layout";
+import {flights} from "../data/flights";
+import {FlightNumberPanel} from "../components/organisms/top/FlightNumberPanel";
+import styled from "styled-components";
 
-const Top: React.FC = () => {
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`
 
-  const {lineChartVM, lineChartDispatch: dispatch} = useContext(StoreContext)
-  const {actions, data, phase, mode, windSwitch, pressureSwitch, temperatureSwitch} = lineChartVM
-  const {setData, setPhase, setMode, setPressureSwitch, setTemperatureSwitch, setWindSwitch} = actions
 
-  useEffect(() => {
-    dispatch(setData(dataSelector(phase, mode)))
-  }, [phase, mode])
-
+const Index: React.FC = () => {
   return <Layout>
-    <ChartLayout
-      data={data}
-      phase={phase}
-      onChangePhase={(e) => {
-        dispatch(setPhase(e.target.value as PHASE))
-      }}
-      mode={mode}
-      onChangeMode={(e) => {
-        dispatch(setMode(e.target.value as MODE))
-      }}
-      wind={{
-        onChange: (e) => {
-          dispatch(setWindSwitch(e.target.checked))
-        }, checked: windSwitch
-      }}
-      temperature={{
-        onChange: (e) => {
-          dispatch(setTemperatureSwitch(e.target.checked))
-        }, checked: temperatureSwitch
-      }}
-      pressure={{
-        onChange: (e) => {
-          dispatch(setPressureSwitch(e.target.checked))
-        }, checked: pressureSwitch
-      }}
-    />
+    <Wrapper>
+      {flights.map(f => {
+        return <FlightNumberPanel key={f.number} flightNumber={f.number}/>
+      })}
+    </Wrapper>
   </Layout>
 }
 
-export default Top
+export default Index

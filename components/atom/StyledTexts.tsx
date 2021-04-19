@@ -10,8 +10,12 @@ const TextBase = styled(Typography)`
     text-transform: none;
 `
 
+export const LargeText = styled(TextBase)`
+  font-size: 24px;
+`
+
 export const BoldText = styled(TextBase)`
-  font-size: 16px;
+  font-size: 24px;
   font-weight: 600;
 `
 

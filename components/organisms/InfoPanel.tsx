@@ -24,14 +24,14 @@ const DescText = styled(BoldText)`
 export const InfoPanel: React.FC = () => {
   return <Wrapper>
     <LayerWrapper>
-      <DescText>AirClaft: B789</DescText>
       <DescText>Fuel Saving: -215kg ($-150)</DescText>
       <DescText>FMS Settings: IAS 243kt, 10k ft, Max M = 0.78</DescText>
     </LayerWrapper>
-    <LayerWrapper>
-      <DescText>Initial cruise altitude: FL320</DescText>
-      <DescText>Time delay to reach original TOC: 0 min</DescText>
-      <DescText>Time difference to reach cruise altitude: -3 min</DescText>
-    </LayerWrapper>
+    {/*<LayerWrapper>*/}
+    {/*<DescText>Airclaft model: B789</DescText>*/}
+    {/*  <DescText>Initial cruise altitude: FL320</DescText>*/}
+    {/*  <DescText>Time delay to reach original TOC: 0 min</DescText>*/}
+    {/*  <DescText>Time difference to reach cruise altitude: -3 min</DescText>*/}
+    {/*</LayerWrapper>*/}
   </Wrapper>
 }

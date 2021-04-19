@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Clock from 'react-live-clock';
 
 import {CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
-import {Data} from "../../../utils/data";
+import {Data} from "../../../data/data";
 
 const Wrapper = styled.div`
   
@@ -21,15 +21,16 @@ const FlightIdWrapper = styled.div`
 `
 
 type Props = {
+  flightNumber: string,
   data: Data
 }
 
-export const LineChart: React.FC<Props> = ({data}) => {
+export const LineChart: React.FC<Props> = ({flightNumber, data}) => {
   return <Wrapper>
     <HeadlineWrapper>
-      <FlightIdWrapper>FN: NF200</FlightIdWrapper>
+      <FlightIdWrapper>FN: {flightNumber}</FlightIdWrapper>
       <div>Current Time: <Clock format={'yyyy/MM/DD HH:mm:ss'} ticking={true}/></div>
-      <FlightIdWrapper>Destination: HND(RJTT) - OKA(RDAH) </FlightIdWrapper>
+      <FlightIdWrapper>Destination: HND(RJTT) - OKA(ROAH) </FlightIdWrapper>
     </HeadlineWrapper>
     <ResponsiveContainer width={'99%'} height={550}>
       <ComposedChart

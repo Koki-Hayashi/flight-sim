@@ -1,6 +1,9 @@
 import {createMuiTheme} from '@material-ui/core/styles';
+import {lightBlue} from "@material-ui/core/colors";
 
 export const defaultTheme = {
+  main: '#1877F2',
+  secondary: lightBlue,
   background: '#FAFAFA',
   error: '#EB5757',
   black: 'black',
@@ -22,7 +25,7 @@ export const muiTheme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: '#1877F2'
+      main: defaultTheme.main
     },
     background: {
       default: defaultTheme.background,

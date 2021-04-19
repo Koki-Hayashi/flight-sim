@@ -1,4 +1,4 @@
-import {Data} from "../../utils/data";
+import {Data} from "../../data/data";
 
 export type PHASE = 'CLIMB' | 'CRUISE'
 export type MODE = 'FL' | 'FUEL_BURN' | 'IAS' | 'MACH'
