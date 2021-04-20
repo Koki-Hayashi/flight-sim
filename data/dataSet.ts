@@ -12,6 +12,7 @@ type Datum = {
   x: number,
   lowerLimit?: number,
   upperLimit?: number,
+  danger?: number
 }
 
 export type DataSet = {

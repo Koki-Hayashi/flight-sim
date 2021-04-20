@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Clock from 'react-live-clock';
 
 import {
+  Area,
   CartesianGrid,
   ComposedChart,
   Legend,
@@ -49,7 +50,7 @@ export const LineChart: React.FC<Props> = ({flight, phase, mode, xAxis}) => {
   const isTime = xAxis === "TIME"
   const xAxisLabel = isTime ? "Time Elapsed (s)" : "Trajectory (km)"
   const data = isTime ? dataSet.time : dataSet.trajectory
-  
+
   return <Wrapper>
     <HeadlineWrapper>
       <FlightIdWrapper>FN: {flight.number}</FlightIdWrapper>
@@ -73,13 +74,13 @@ export const LineChart: React.FC<Props> = ({flight, phase, mode, xAxis}) => {
           <Legend verticalAlign="top"/>
           <Tooltip/>
           <CartesianGrid stroke="#eee" strokeDasharray="1 1"/>
-          <Line type="monotone" dataKey="original" stroke="#228B22" dot={false}/>
-          <Line type="monotone" dataKey="optimal" stroke={defaultTheme.main} dot={false}/>
+          <Line type="monotone" dataKey="original" name="Original" stroke="#228B22" dot={false}/>
+          <Line type="monotone" dataKey="optimal" name="Optimal" stroke={defaultTheme.main} dot={false}/>
           {phase.type === "CRUISE" && mode === "FL" &&
-          <Line type="monotone" dataKey="upperLimit" stroke="red" name="EEF upper limit" dot={false}/>
+          <Line type="monotone" dataKey="upperLimit" stroke="red" name="EEF Upper Limit" dot={false}/>
           }
           {phase.type === "CRUISE" && mode === "FL" &&
-          <Line type="monotone" dataKey="lowerLimit" stroke="blue" name="EEF lower limit" dot={false}/>
+          <Line type="monotone" dataKey="lowerLimit" stroke="blue" name="EEF Lower Limit" dot={false}/>
           }
           {phase.type === "CRUISE" && mode === "FL" && (isTime ?
               <ReferenceLine
@@ -93,6 +94,10 @@ export const LineChart: React.FC<Props> = ({flight, phase, mode, xAxis}) => {
                              label="②"/> :
               <ReferenceLine segment={[{x: 721, y: 340}, {x: 721, y: 600}]} stroke={defaultTheme.darkGray} label="②"/>
           )}
+          {phase.type === "CRUISE" && mode === "FL" &&
+          <Area type="monotone" dataKey="danger" name={"Not Allowed To Fly"} fill={defaultTheme.error}
+                stroke={defaultTheme.error}/>
+          }
         </ComposedChart>
       </ResponsiveContainer>
     </ChartWrapper>
