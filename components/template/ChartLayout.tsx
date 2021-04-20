@@ -81,7 +81,7 @@ export const ChartLayout: React.FC<Props> = ({flight, phase, onChangeMode, mode,
       />
     </SettingsWrapper>
     <InfoWrapper>
-      <InfoPanel fuelSave={phase.fuelSave}/>
+      <InfoPanel fuelSave={phase.fuelSave} isCruise={phase.type === "CRUISE"}/>
     </InfoWrapper>
   </Wrapper>
 }

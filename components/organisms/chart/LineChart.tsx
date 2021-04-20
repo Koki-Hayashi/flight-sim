@@ -2,7 +2,17 @@ import React from 'react'
 import styled from "styled-components";
 import Clock from 'react-live-clock';
 
-import {CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
+import {
+  CartesianGrid,
+  ComposedChart,
+  Legend,
+  Line,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
 import {getDataSet, Phase} from "../../../data/dataSet";
 import {FlightData} from "../../../data/flights";
 import {MODE, X_AXIS_MODE} from "../../../store/viewModel/lineChartVM";
@@ -36,9 +46,10 @@ export type Props = {
 export const LineChart: React.FC<Props> = ({flight, phase, mode, xAxis}) => {
 
   const dataSet = getDataSet(phase.type, mode)
-  const xAxisLabel = xAxis === "TIME" ? "Time Elapsed (s)" : "Trajectory (km)"
-  const data = xAxis === "TIME" ? dataSet.time : dataSet.trajectory
-
+  const isTime = xAxis === "TIME"
+  const xAxisLabel = isTime ? "Time Elapsed (s)" : "Trajectory (km)"
+  const data = isTime ? dataSet.time : dataSet.trajectory
+  
   return <Wrapper>
     <HeadlineWrapper>
       <FlightIdWrapper>FN: {flight.number}</FlightIdWrapper>
@@ -70,6 +81,18 @@ export const LineChart: React.FC<Props> = ({flight, phase, mode, xAxis}) => {
           {phase.type === "CRUISE" && mode === "FL" &&
           <Line type="monotone" dataKey="lowerLimit" stroke="blue" name="EEF lower limit" dot={false}/>
           }
+          {phase.type === "CRUISE" && mode === "FL" && (isTime ?
+              <ReferenceLine
+                segment={[{x: 3066, y: 340}, {x: 3066, y: 600}]}  // TODO Have to define x in a programmatical way
+                stroke={defaultTheme.darkGray}
+                label="①"/> :
+              <ReferenceLine segment={[{x: 497, y: 340}, {x: 497, y: 600}]} stroke={defaultTheme.darkGray} label="①"/>
+          )}
+          {phase.type === "CRUISE" && mode === "FL" && (isTime ?
+              <ReferenceLine segment={[{x: 3974, y: 340}, {x: 3974, y: 600}]} stroke={defaultTheme.darkGray}
+                             label="②"/> :
+              <ReferenceLine segment={[{x: 721, y: 340}, {x: 721, y: 600}]} stroke={defaultTheme.darkGray} label="②"/>
+          )}
         </ComposedChart>
       </ResponsiveContainer>
     </ChartWrapper>
