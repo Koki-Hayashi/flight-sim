@@ -1,4 +1,5 @@
 import {getPhase, Phase} from "../../data/dataSet";
+import {ViewModelType} from "../types/type";
 
 export type MODE = 'FL' | 'FUEL_BURN' | 'IAS' | 'MACH'
 export type X_AXIS_MODE = 'TIME' | 'TRAJECTORY'
@@ -12,35 +13,8 @@ export class LineChartVM {
   pressureSwitch: boolean = false
 
   actions = {
-    setPhase: (value: Phase): this => {
-      this.phase = value
-
-      return this
-    },
-    setMode: (value: MODE): this => {
-      this.mode = value
-
-      return this
-    },
-    setXAxis: (value: X_AXIS_MODE): this => {
-      this.xAxis = value
-
-      return this
-    },
-    setWindSwitch: (value: boolean): this => {
-      this.windSwitch = value
-
-      return this
-    },
-    setTemperatureSwitch: (value: boolean): this => {
-      this.temperatureSwitch = value
-
-      return this
-    },
-    setPressureSwitch: (value: boolean): this => {
-      this.pressureSwitch = value;
-
-      return this
+    update: (value: ViewModelType<LineChartVM>): LineChartVM => {
+      return Object.assign(this, value)
     },
   }
 
